@@ -33,11 +33,12 @@ class GithubException(Exception):
     Some other types of exceptions might be raised by underlying libraries, for example for network-related issues.
     """
 
-    def __init__(self, status, data):
+    def __init__(self, status, data, headers):
         Exception.__init__(self)
         self.__status = status
         self.__data = data
-        self.args = [status, data]
+        self.__headers = headers
+        self.args = [status, data, headers]
 
     @property
     def status(self):
@@ -52,6 +53,13 @@ class GithubException(Exception):
         The (decoded) data returned by the Github API
         """
         return self.__data
+
+    @property
+    def headers(self):
+        """
+        The headers returned by the Github API
+        """
+        return self.__headers
 
     def __str__(self):
         return str(self.status) + " " + str(self.data)

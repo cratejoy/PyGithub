@@ -193,7 +193,7 @@ class Requester:
             cls = GithubException.UnknownObjectException
         else:
             cls = GithubException.GithubException
-        return cls(status, output)
+        return cls(status, output, headers)
 
     def __structuredFromJson(self, data):
         if len(data) == 0:
